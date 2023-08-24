@@ -25,7 +25,7 @@ public class BaseDeDados {
     public void cadastrarDados() {
         adicionarCliente(new Cliente(1, "BRUNO"));
         adicionarCliente(new Cliente(2, "ANDRE"));
-        
+
         adicionarFilme(new Filme("300 ESPARTA"));
         adicionarFilme(new Filme("AGENTE STONE"));
         adicionarFilme(new Filme("INTERESTELAR"));
@@ -33,7 +33,6 @@ public class BaseDeDados {
         adicionarFilme(new Filme("SE7EN"));
     }
 
-    
     public void adicionarCliente(Cliente cliente) {
         lstClientes.add(cliente);
         LinkedList<Integer> avaliacoes = new LinkedList<>();
@@ -49,7 +48,7 @@ public class BaseDeDados {
             avaliacoes.add(0);
         }
     }
-    
+
     public void imprimirMatrizAvaliacoes() {
         for (int i = 0; i < lstClientes.size(); i++) {
             Cliente cliente = lstClientes.get(i);
@@ -64,9 +63,61 @@ public class BaseDeDados {
             System.out.println();
         }
     }
-       
-    
-    public void avaliarFilme(String nomeCliente, String tituloFilme, int nota) {
+
+    public String avaliarFilme(String nomeCliente, String tituloFilme, int nota) {
+        int clienteIndex = buscarClientePorNome(nomeCliente);
+        int filmeIndex = buscaFilmePorTitulo(tituloFilme);
+        String s;
+
+        if (clienteIndex != -1) {
+            if (filmeIndex != -1) {
+                matriz.get(clienteIndex).set(filmeIndex, nota);
+                lstFilmes.get(filmeIndex).setNota(nota);
+                s = "Filme avaliado";
+            } else {
+                s = "Filme nao encontrado";
+                System.out.println("Filme nao encontrado");
+            }
+        } else {
+            s = "Usuario nao encontrado";
+            System.out.println("Usuario nao encontrado");
+        }
+        
+        return s;
+    }
+
+    public String retornaFilmeParaAvaliacao(String nomeCliente) {
+        int clienteIndex = buscarClientePorNome(nomeCliente);
+        String s = "";
+        LinkedList<Filme> fimesNaoAvaliados = new LinkedList();
+        
+        
+        if (clienteIndex != -1){
+            LinkedList<Integer> avaliacoesUsuario = matriz.get(clienteIndex);
+
+            for (int i = 0; i < avaliacoesUsuario.size(); i++) {
+                if (avaliacoesUsuario.get(i) == 0) {
+                    fimesNaoAvaliados.add(lstFilmes.get(i));
+                }
+            }
+            
+            if (fimesNaoAvaliados.isEmpty()){
+                s = "Todos os filmes ja foram avaliados";
+                return s;
+            
+            } else {
+                s = fimesNaoAvaliados.get(0).getTitulo();
+                System.out.println(s);
+            }
+            
+        } else {
+            System.out.println("Erro ");
+        }
+        
+        return s;
+    }
+
+    public int buscarClientePorNome(String nomeCliente) {
         int clienteIndex = -1;
         for (int i = 0; i < lstClientes.size(); i++) {
             if (lstClientes.get(i).getNome().equals(nomeCliente)) {
@@ -74,7 +125,10 @@ public class BaseDeDados {
                 break;
             }
         }
+        return clienteIndex;
+    }
 
+    public int buscaFilmePorTitulo(String tituloFilme) {
         int filmeIndex = -1;
         for (int i = 0; i < lstFilmes.size(); i++) {
             if (lstFilmes.get(i).getTitulo().equals(tituloFilme)) {
@@ -82,25 +136,14 @@ public class BaseDeDados {
                 break;
             }
         }
-
-        if (clienteIndex != -1) {
-            if (filmeIndex != -1){
-                matriz.get(clienteIndex).set(filmeIndex, nota);
-                lstFilmes.get(filmeIndex).setNota(nota);
-            } else {
-                System.out.println("Filme nao encontrado");
-            }
-            
-        } else {
-            System.out.println("Usuario nao encontrado");
-        }
+        return filmeIndex;
     }
-       
+
     public LinkedList<Cliente> obterListaCliente() {
         return lstClientes;
     }
-    
-     public LinkedList<Filme> obterListaFilme() {
+
+    public LinkedList<Filme> obterListaFilme() {
         return lstFilmes;
     }
 
@@ -116,6 +159,16 @@ public class BaseDeDados {
         for (int i = 0; i < qntClientes(); i++) {
             System.out.println(lstClientes.get(i).toString());
         }
+    }
+
+    public String le() {
+        String s = "\n";
+
+        for (int pos = 0; pos < qntFilmes(); pos++) {
+            s = s + lstFilmes.get(pos).getTitulo() + " | Nota: " + lstFilmes.get(pos).getNota() + " " + "\n";
+        }
+
+        return s;
     }
 
 }

@@ -10,7 +10,8 @@ public class Formulario extends javax.swing.JFrame {
         MeuClienteUDP cliente = new MeuClienteUDP();
         
         txtServidor.setText(cliente.getNomeDNS());
-        txtUsuario.setText(JOptionPane.showInputDialog(null, "Informe seu identificador para o chat:"));
+        txtUsuario.setText(JOptionPane.showInputDialog(null, "Informe seu identificador para o chat:").toUpperCase());
+        jpnAvaliar.setVisible(false);
         
         
     }
@@ -23,13 +24,16 @@ public class Formulario extends javax.swing.JFrame {
         txtServidor = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
-        btnEnviar = new javax.swing.JButton();
-        rdbAvaliar = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        numNota = new javax.swing.JSpinner();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        btnSolicitarFilme = new javax.swing.JButton();
+        jpnAvaliar = new javax.swing.JPanel();
+        numNota = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        btnEnviar = new javax.swing.JButton();
+        txtFilme = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,85 +43,99 @@ public class Formulario extends javax.swing.JFrame {
 
         jLabel2.setText("Usuario");
 
-        btnEnviar.setText("Enviar");
+        txtUsuario.setEnabled(false);
+
+        jLabel4.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
+        jLabel4.setText("Avaliar Filmes");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        btnSolicitarFilme.setText("Solicitar Filme");
+        btnSolicitarFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitarFilmeActionPerformed(evt);
+            }
+        });
+
+        jpnAvaliar.setBorder(javax.swing.BorderFactory.createTitledBorder("Avaliar Filme"));
+
+        numNota.setModel(new javax.swing.SpinnerNumberModel(1, 1, 3, 1));
+
+        jLabel3.setText("Nota:");
+
+        btnEnviar.setText("Avaliar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarActionPerformed(evt);
             }
         });
 
-        rdbAvaliar.setText("Avaliar");
-        rdbAvaliar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdbAvaliarActionPerformed(evt);
-            }
-        });
+        txtFilme.setEnabled(false);
 
-        jLabel3.setText("Nota:");
+        jLabel5.setText("Filme");
 
-        numNota.setModel(new javax.swing.SpinnerNumberModel(1, 1, 3, 1));
-        numNota.setEnabled(false);
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Filme", "Nota"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-
-        jLabel4.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
-        jLabel4.setText("Avaliar Filmes");
+        javax.swing.GroupLayout jpnAvaliarLayout = new javax.swing.GroupLayout(jpnAvaliar);
+        jpnAvaliar.setLayout(jpnAvaliarLayout);
+        jpnAvaliarLayout.setHorizontalGroup(
+            jpnAvaliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnAvaliarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnAvaliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpnAvaliarLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(numNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addComponent(btnEnviar))
+                    .addGroup(jpnAvaliarLayout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtFilme)))
+                .addGap(14, 14, 14))
+        );
+        jpnAvaliarLayout.setVerticalGroup(
+            jpnAvaliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnAvaliarLayout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jpnAvaliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jpnAvaliarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(numNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(btnEnviar))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 130, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(121, 121, 121))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rdbAvaliar)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(28, 28, 28)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                                    .addComponent(txtServidor)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(btnEnviar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jpnAvaliar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2))
+                            .addGap(28, 28, 28)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                                .addComponent(txtServidor)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(109, 109, 109)
+                            .addComponent(btnSolicitarFilme))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,37 +151,42 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbAvaliar)
-                    .addComponent(jLabel3)
-                    .addComponent(numNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEnviar)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addComponent(btnSolicitarFilme)
+                .addGap(40, 40, 40)
+                .addComponent(jpnAvaliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        String msg = numNota.getValue().toString();
         String nota = numNota.getValue().toString();
+        String msg = "";
         
-        if(msg.isEmpty()){
-            JOptionPane.showConfirmDialog(null, "Favor informar a ser enviada.");
-        } else {
-            msg = "1;" + txtUsuario.getText().toUpperCase() + ";" + "SE7EN" + ";" + nota;
-            
-            MeuClienteUDP cliente = new MeuClienteUDP();
-            String resposta = cliente.enviarMensagem(msg);
-        }
+        msg = "2;" + txtUsuario.getText().toUpperCase() + ";" + txtFilme.getText().toUpperCase() + ";" + nota;
+        
+        MeuClienteUDP cliente = new MeuClienteUDP();
+        String resposta = cliente.enviarMensagem(msg);
+        
+        jTextArea1.setText(resposta);
+        
     }//GEN-LAST:event_btnEnviarActionPerformed
 
-    private void rdbAvaliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbAvaliarActionPerformed
-        numNota.setEnabled(true);
-    }//GEN-LAST:event_rdbAvaliarActionPerformed
+    private void btnSolicitarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarFilmeActionPerformed
+        String msg = "";
+        
+        msg = "1;" + txtUsuario.getText().toUpperCase();
+        
+        MeuClienteUDP cliente = new MeuClienteUDP();
+        String resposta = cliente.enviarMensagem(msg);
+        
+        jpnAvaliar.setVisible(true);
+        
+        txtFilme.setText(resposta);
+    }//GEN-LAST:event_btnSolicitarFilmeActionPerformed
 
 
     public static void main(String args[]) {
@@ -174,7 +197,7 @@ public class Formulario extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -200,14 +223,17 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnSolicitarFilme;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel jpnAvaliar;
     private javax.swing.JSpinner numNota;
-    private javax.swing.JRadioButton rdbAvaliar;
+    private javax.swing.JTextField txtFilme;
     private javax.swing.JTextField txtServidor;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
