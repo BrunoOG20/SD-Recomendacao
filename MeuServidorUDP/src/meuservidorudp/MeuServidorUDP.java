@@ -13,7 +13,7 @@ public class MeuServidorUDP {
         try {
             aSocket = new DatagramSocket(6789);
             bd.cadastrarDados();
-            
+         
             while(true) {
                 
                 byte[] buffer = new byte[600];
@@ -34,15 +34,14 @@ public class MeuServidorUDP {
                         resposta = bd.retornaFilmeParaAvaliacao(dados[1].trim());
                         break;
                     case 2:
-                        //int nota = Integer.parseInt(dados[3].trim());
-                        resposta = bd.avaliarFilme(dados[1].trim(), dados[2].trim(), 2);
+                        int nota = Integer.parseInt(dados[3].trim());
+                        resposta = bd.avaliarFilme(dados[1].trim(), dados[2].trim(), nota);
                         break;    
                     case 3:
-                        System.out.println("OP3");
+                        resposta = bd.recomendarFilme(dados[1].trim());
                         break;     
                     case 4:
-                        System.out.println("OP4");
-                        resposta = bd.le();
+                        resposta = bd.listaDeFilmes(dados[1].trim());
                         break;    
                     default:    
                         System.out.println("Err");

@@ -34,6 +34,8 @@ public class Formulario extends javax.swing.JFrame {
         btnEnviar = new javax.swing.JButton();
         txtFilme = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        btnLstFilmes = new javax.swing.JButton();
+        btnRecomendar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -42,8 +44,6 @@ public class Formulario extends javax.swing.JFrame {
         txtServidor.setEnabled(false);
 
         jLabel2.setText("Usuario");
-
-        txtUsuario.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Leelawadee", 1, 18)); // NOI18N
         jLabel4.setText("Avaliar Filmes");
@@ -87,7 +87,7 @@ public class Formulario extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(numNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEnviar))
                     .addGroup(jpnAvaliarLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -110,6 +110,20 @@ public class Formulario extends javax.swing.JFrame {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
+        btnLstFilmes.setText("Listar Filmes");
+        btnLstFilmes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLstFilmesActionPerformed(evt);
+            }
+        });
+
+        btnRecomendar.setText("Recomendacao De Filme");
+        btnRecomendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecomendarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,21 +135,22 @@ public class Formulario extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addComponent(jpnAvaliar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addGap(28, 28, 28)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                                .addComponent(txtServidor)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(109, 109, 109)
-                            .addComponent(btnSolicitarFilme))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                            .addComponent(txtServidor)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnLstFilmes, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSolicitarFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRecomendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +166,12 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSolicitarFilme)
-                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSolicitarFilme)
+                    .addComponent(btnLstFilmes))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRecomendar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jpnAvaliar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,7 +185,7 @@ public class Formulario extends javax.swing.JFrame {
         String nota = numNota.getValue().toString();
         String msg = "";
         
-        msg = "2;" + txtUsuario.getText().toUpperCase() + ";" + txtFilme.getText().toUpperCase() + ";" + nota;
+        msg = "2;" + txtUsuario.getText().toUpperCase().trim() + ";" + txtFilme.getText().toUpperCase().trim() + ";" + nota;
         
         MeuClienteUDP cliente = new MeuClienteUDP();
         String resposta = cliente.enviarMensagem(msg);
@@ -187,6 +206,28 @@ public class Formulario extends javax.swing.JFrame {
         
         txtFilme.setText(resposta);
     }//GEN-LAST:event_btnSolicitarFilmeActionPerformed
+
+    private void btnLstFilmesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLstFilmesActionPerformed
+        String msg = "";
+        
+        msg = "4;" + txtUsuario.getText().toUpperCase();
+        
+        MeuClienteUDP cliente = new MeuClienteUDP();
+        String resposta = cliente.enviarMensagem(msg);
+        
+        jTextArea1.setText(resposta);
+    }//GEN-LAST:event_btnLstFilmesActionPerformed
+
+    private void btnRecomendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecomendarActionPerformed
+        String msg = "";
+        
+        msg = "3;" + txtUsuario.getText().toUpperCase();
+        
+        MeuClienteUDP cliente = new MeuClienteUDP();
+        String resposta = cliente.enviarMensagem(msg);
+        
+        jTextArea1.setText(resposta);
+    }//GEN-LAST:event_btnRecomendarActionPerformed
 
 
     public static void main(String args[]) {
@@ -223,6 +264,8 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
+    private javax.swing.JButton btnLstFilmes;
+    private javax.swing.JButton btnRecomendar;
     private javax.swing.JButton btnSolicitarFilme;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

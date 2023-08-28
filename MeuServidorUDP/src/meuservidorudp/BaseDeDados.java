@@ -25,6 +25,7 @@ public class BaseDeDados {
     public void cadastrarDados() {
         adicionarCliente(new Cliente(1, "BRUNO"));
         adicionarCliente(new Cliente(2, "ANDRE"));
+        adicionarCliente(new Cliente(3, "EVERTON"));
 
         adicionarFilme(new Filme("300 ESPARTA"));
         adicionarFilme(new Filme("AGENTE STONE"));
@@ -161,14 +162,68 @@ public class BaseDeDados {
         }
     }
 
-    public String le() {
+    public String listaDeFilmes(String nomeCliente) {
         String s = "\n";
+        int clienteIndex = buscarClientePorNome(nomeCliente);
 
-        for (int pos = 0; pos < qntFilmes(); pos++) {
-            s = s + lstFilmes.get(pos).getTitulo() + " | Nota: " + lstFilmes.get(pos).getNota() + " " + "\n";
+        Cliente cliente = lstClientes.get(clienteIndex);
+        System.out.println("Cliente: " + cliente.getNome());
+
+        LinkedList<Integer> avaliacoesCliente = matriz.get(clienteIndex);
+        for (int j = 0; j < lstFilmes.size(); j++) {
+            Filme filme = lstFilmes.get(j);
+            int nota = avaliacoesCliente.get(j);
+            s = s + filme.getTitulo() + " | Nota: " + nota + " " + "\n";
+        }
+          
+        return s;
+    }
+    
+    public double calcularDistancia(LinkedList<LinkedList<Integer>> matriz, int linhaUsuario, int colunaFilme) {
+        double distancia = 0;
+
+        for (int i = 0; i < matriz.size(); i++) {
+            if (i != linhaUsuario && matriz.get(i).get(colunaFilme) != 0) {
+                double diferenca = matriz.get(linhaUsuario).get(colunaFilme) - matriz.get(i).get(colunaFilme);
+                distancia += diferenca * diferenca;
+            }
+        }
+        return Math.sqrt(distancia);
+    }
+    
+    public String recomendarFilme(String nome) {
+        int linhaUsuario = buscarClientePorNome(nome);
+        double menorDistancia = Double.MAX_VALUE;
+        LinkedList<Integer> filmesRecomendados = new LinkedList<>();
+
+        for (int coluna = 0; coluna < qntFilmes(); coluna++) {
+            if (matriz.get(linhaUsuario).get(coluna) == 0) {
+                double distancia = calcularDistancia(matriz, linhaUsuario, coluna);
+                System.out.println("Filme: " + lstFilmes.get(coluna).getTitulo() + ", Distância: " + distancia);
+                if (distancia < menorDistancia) {
+                    menorDistancia = distancia;
+                    filmesRecomendados.clear();
+                    filmesRecomendados.add(coluna);
+                } else if (distancia == menorDistancia) {
+                    filmesRecomendados.add(coluna);
+                }
+            }
         }
 
-        return s;
+        if (!filmesRecomendados.isEmpty()) {
+            StringBuilder recomendacoes = new StringBuilder();
+            for (Integer filmeIndex : filmesRecomendados) {
+                if (recomendacoes.length() > 0) {
+                    recomendacoes.append("\n");
+                }
+                recomendacoes.append(lstFilmes.get(filmeIndex).getTitulo());
+            }
+            System.out.println("\n+-------------------------------------------------------------+");
+            return recomendacoes.toString();
+        } else {
+            System.out.println("\n+-------------------------------------------------------------+");
+            return "Nao ha filmes para recomendar!";
+        }
     }
 
 }
