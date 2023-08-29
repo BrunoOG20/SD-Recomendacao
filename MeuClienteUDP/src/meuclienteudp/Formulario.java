@@ -9,8 +9,20 @@ public class Formulario extends javax.swing.JFrame {
         
         MeuClienteUDP cliente = new MeuClienteUDP();
         
+        String nome;
+        String validacaoNome;
+        
+        do {
+            nome = JOptionPane.showInputDialog(null, "Informe seu identificador para o chat:").toUpperCase();
+            validacaoNome = cliente.enviarMensagem("5;" + nome);
+
+            if (validacaoNome.contains("-1")) {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+            }
+        } while (validacaoNome.contains("-1"));
+        
         txtServidor.setText(cliente.getNomeDNS());
-        txtUsuario.setText(JOptionPane.showInputDialog(null, "Informe seu identificador para o chat:").toUpperCase());
+        txtUsuario.setText(nome);
         jpnAvaliar.setVisible(false);
         
         
