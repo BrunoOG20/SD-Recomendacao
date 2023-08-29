@@ -3,15 +3,15 @@ package meuclienteudp;
 import javax.swing.JOptionPane;
 
 public class Formulario extends javax.swing.JFrame {
-    
+
     public Formulario() {
+
         initComponents();
-        
-        MeuClienteUDP cliente = new MeuClienteUDP();
-        
         String nome;
         String validacaoNome;
-        
+
+        MeuClienteUDP cliente = new MeuClienteUDP();
+
         do {
             nome = JOptionPane.showInputDialog(null, "Informe seu identificador para o chat:").toUpperCase();
             validacaoNome = cliente.enviarMensagem("5;" + nome);
@@ -20,12 +20,12 @@ public class Formulario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuário não encontrado");
             }
         } while (validacaoNome.contains("-1"));
-        
+
+
         txtServidor.setText(cliente.getNomeDNS());
         txtUsuario.setText(nome);
         jpnAvaliar.setVisible(false);
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -196,51 +196,50 @@ public class Formulario extends javax.swing.JFrame {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         String nota = numNota.getValue().toString();
         String msg = "";
-        
+
         msg = "2;" + txtUsuario.getText().toUpperCase().trim() + ";" + txtFilme.getText().toUpperCase().trim() + ";" + nota;
-        
+
         MeuClienteUDP cliente = new MeuClienteUDP();
         String resposta = cliente.enviarMensagem(msg);
-        
+
         jTextArea1.setText(resposta);
-        
+
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnSolicitarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarFilmeActionPerformed
         String msg = "";
-        
+
         msg = "1;" + txtUsuario.getText().toUpperCase();
-        
+
         MeuClienteUDP cliente = new MeuClienteUDP();
         String resposta = cliente.enviarMensagem(msg);
-        
+
         jpnAvaliar.setVisible(true);
-        
+
         txtFilme.setText(resposta);
     }//GEN-LAST:event_btnSolicitarFilmeActionPerformed
 
     private void btnLstFilmesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLstFilmesActionPerformed
         String msg = "";
-        
+
         msg = "4;" + txtUsuario.getText().toUpperCase();
-        
+
         MeuClienteUDP cliente = new MeuClienteUDP();
         String resposta = cliente.enviarMensagem(msg);
-        
+
         jTextArea1.setText(resposta);
     }//GEN-LAST:event_btnLstFilmesActionPerformed
 
     private void btnRecomendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecomendarActionPerformed
         String msg = "";
-        
+
         msg = "3;" + txtUsuario.getText().toUpperCase();
-        
+
         MeuClienteUDP cliente = new MeuClienteUDP();
         String resposta = cliente.enviarMensagem(msg);
-        
+
         jTextArea1.setText(resposta);
     }//GEN-LAST:event_btnRecomendarActionPerformed
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -24,9 +24,8 @@ public class BaseDeDados {
 
     public void cadastrarDados() {
         adicionarCliente(new Cliente(1, "BRUNO"));
-        adicionarCliente(new Cliente(2, "ANDRE"));
-        adicionarCliente(new Cliente(3, "EVERTON"));
-
+        adicionarCliente(new Cliente(1, "KDU"));
+        
         adicionarFilme(new Filme("300 ESPARTA"));
         adicionarFilme(new Filme("AGENTE STONE"));
         adicionarFilme(new Filme("INTERESTELAR"));
@@ -202,7 +201,6 @@ public class BaseDeDados {
                 System.out.println("Filme: " + lstFilmes.get(coluna).getTitulo() + ", Distância: " + distancia);
                 if (distancia < menorDistancia) {
                     menorDistancia = distancia;
-                    filmesRecomendados.clear();
                     filmesRecomendados.add(coluna);
                 } else if (distancia == menorDistancia) {
                     filmesRecomendados.add(coluna);
@@ -212,13 +210,11 @@ public class BaseDeDados {
 
         if (!filmesRecomendados.isEmpty()) {
             StringBuilder recomendacoes = new StringBuilder();
-            for (Integer filmeIndex : filmesRecomendados) {
-                if (recomendacoes.length() > 0) {
-                    recomendacoes.append("\n");
-                }
-                recomendacoes.append(lstFilmes.get(filmeIndex).getTitulo());
-            }
+            recomendacoes.append("Filme recomendado: \n");
+            recomendacoes.append(lstFilmes.get(filmesRecomendados.get(0)).getTitulo());
+          
             System.out.println("\n+-------------------------------------------------------------+");
+            System.out.println(recomendacoes.toString());
             return recomendacoes.toString();
         } else {
             System.out.println("\n+-------------------------------------------------------------+");
